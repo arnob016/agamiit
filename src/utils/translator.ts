@@ -1,8 +1,6 @@
 
-import { Translate } from 'translate-js';
-
-// Create a new instance of Translate
-const translator = new Translate();
+// Import the translate function directly from the package
+import translate from 'translate-js';
 
 /**
  * Translate text from English to Bengali
@@ -11,7 +9,7 @@ const translator = new Translate();
  */
 export const translateToBengali = (text: string): string => {
   try {
-    return translator.translate(text, { from: 'en', to: 'bn' });
+    return translate(text, { from: 'en', to: 'bn' });
   } catch (error) {
     console.error('Translation error:', error);
     return text; // Return original text if translation fails
@@ -25,7 +23,7 @@ export const translateToBengali = (text: string): string => {
  */
 export const translateToEnglish = (text: string): string => {
   try {
-    return translator.translate(text, { from: 'bn', to: 'en' });
+    return translate(text, { from: 'bn', to: 'en' });
   } catch (error) {
     console.error('Translation error:', error);
     return text; // Return original text if translation fails

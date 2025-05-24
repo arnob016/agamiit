@@ -568,10 +568,11 @@ const Services = () => {
     ? services 
     : services.filter(service => service.category === activeTab);
 
-  // Function to handle scrolling to the packages section
+  // Function to handle scrolling to the packages section - fixed to avoid type issues
   const handlePackagesScroll = () => {
-    // Update to use a simple string instead of potentially a string array
-    scrollToSection("packages");
+    // Explicitly use a string ID to match the scrollToSection parameter type
+    const sectionId = "packages";
+    scrollToSection(sectionId);
   };
     
   return (

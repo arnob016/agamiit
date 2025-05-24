@@ -1,11 +1,12 @@
 
-export const scrollToSection = (sectionId: string | string[]): void => {
-  // Convert to string if array is passed
-  const id = Array.isArray(sectionId) ? sectionId[0] : sectionId;
-  
+/**
+ * Scrolls to a specific section on the page with a smooth animation
+ * @param sectionId The ID of the section to scroll to
+ */
+export const scrollToSection = (sectionId: string): void => {
   // Add small delay to ensure DOM is ready
   setTimeout(() => {
-    const section = document.getElementById(id);
+    const section = document.getElementById(sectionId);
     
     if (section) {
       // Scroll to the section with smooth behavior
