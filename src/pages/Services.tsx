@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -571,6 +570,7 @@ const Services = () => {
 
   // Function to handle scrolling to the packages section
   const handlePackagesScroll = () => {
+    // Update to use a simple string instead of potentially a string array
     scrollToSection("packages");
   };
     
