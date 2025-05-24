@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { X, Menu, ChevronDown, ChevronRight } from "lucide-react";
+import { X, Menu, ChevronDown, ChevronRight, Code, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { 
   Sheet,
@@ -9,15 +9,24 @@ import {
   SheetClose
 } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 
 const MobileMenu = () => {
-  const { t, language } = useLanguage();
+  const { t, language, toggleLanguage } = useLanguage();
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const location = useLocation();
   
   const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
+  };
+  
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+  
+  const handleLanguageToggle = () => {
+    toggleLanguage();
   };
   
   return (
@@ -28,7 +37,7 @@ const MobileMenu = () => {
           <span className="sr-only">Toggle menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-[300px] sm:w-[350px]">
+      <SheetContent side="left" className="w-[300px] sm:w-[350px] overflow-y-auto">
         <div className="flex flex-col h-full">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-3">
@@ -47,19 +56,19 @@ const MobileMenu = () => {
           <div className="flex-1 mt-4 overflow-auto">
             <nav className="space-y-1">
               <SheetClose asChild>
-                <Link to="/" className="flex items-center py-3 px-4 rounded-lg hover:bg-gray-100">
+                <Link to="/" className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}>
                   {language === 'en' ? "Home" : "হোম"}
                 </Link>
               </SheetClose>
               
               <SheetClose asChild>
-                <Link to="/about" className="flex items-center py-3 px-4 rounded-lg hover:bg-gray-100">
+                <Link to="/about" className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/about') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}>
                   {t.about}
                 </Link>
               </SheetClose>
               
               <SheetClose asChild>
-                <Link to="/services" className="flex items-center py-3 px-4 rounded-lg hover:bg-gray-100">
+                <Link to="/services" className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/services') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}>
                   {t.services}
                 </Link>
               </SheetClose>
@@ -97,7 +106,7 @@ const MobileMenu = () => {
               </Collapsible>
               
               <SheetClose asChild>
-                <Link to="/contact" className="flex items-center py-3 px-4 rounded-lg hover:bg-gray-100">
+                <Link to="/contact" className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/contact') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}>
                   {t.contact}
                 </Link>
               </SheetClose>
@@ -106,7 +115,7 @@ const MobileMenu = () => {
           
           <div className="mt-auto pt-4 border-t border-gray-200">
             <Button 
-              onClick={() => document.getElementById('language-toggle')?.click()}
+              onClick={handleLanguageToggle}
               variant="outline"
               className="w-full justify-start"
             >
@@ -116,11 +125,13 @@ const MobileMenu = () => {
               </span>
             </Button>
             <SheetClose asChild>
-              <Button 
-                className="w-full mt-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
-              >
-                {t.getStarted}
-              </Button>
+              <Link to="/contact">
+                <Button 
+                  className="w-full mt-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                >
+                  {t.getStarted}
+                </Button>
+              </Link>
             </SheetClose>
           </div>
         </div>
@@ -128,8 +139,5 @@ const MobileMenu = () => {
     </Sheet>
   );
 };
-
-// Add missing Code and Languages component imports
-import { Code, Languages } from 'lucide-react';
 
 export default MobileMenu;

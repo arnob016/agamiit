@@ -44,7 +44,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             </Link>
           </div>
           
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6">
             <Link 
               to="/" 
               className={`text-gray-700 hover:text-blue-600 font-medium transition-colors ${isActive('/') ? 'text-blue-600' : ''}`}
@@ -71,7 +71,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             </Link>
           </nav>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             <Button
               id="language-toggle"
               variant="ghost"
@@ -93,14 +93,14 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       </header>
 
       {/* Main Content */}
-      <main>
+      <main className="overflow-x-hidden">
         {children}
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4">
+      <footer className="bg-gray-900 text-white py-12 px-4 overflow-hidden">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-3 mb-4">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
