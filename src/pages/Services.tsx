@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,6 +7,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import MainLayout from "@/components/MainLayout";
 import { CheckCircle, Code, PenTool, Smartphone, Globe, Database, BarChart } from "lucide-react";
 import { Link } from "react-router-dom";
+import { scrollToSection } from "@/utils/scrollToSection";
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -566,6 +568,11 @@ const Services = () => {
   const filteredServices = activeTab === "all" 
     ? services 
     : services.filter(service => service.category === activeTab);
+
+  // Function to handle scrolling to the packages section
+  const handlePackagesScroll = () => {
+    scrollToSection("packages");
+  };
     
   return (
     <MainLayout>
