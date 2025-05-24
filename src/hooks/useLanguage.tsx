@@ -1,6 +1,7 @@
 
 import { createContext, useState, useContext, ReactNode } from 'react';
 import { toast } from '@/hooks/use-toast';
+import { translateText } from '@/utils/translator';
 
 interface Translation {
   [key: string]: string | string[];
@@ -10,6 +11,7 @@ interface LanguageContextType {
   language: 'en' | 'bn';
   toggleLanguage: () => void;
   t: Translation;
+  translate: (text: string) => string;
 }
 
 const translations: { [key: string]: Translation } = {
@@ -183,6 +185,7 @@ const LanguageContext = createContext<LanguageContextType>({
   language: 'en',
   toggleLanguage: () => {},
   t: translations['en'],
+  translate: (text: string) => text,
 });
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
@@ -197,8 +200,13 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     });
   };
   
+  // New function to translate text on-the-fly
+  const translate = (text: string): string => {
+    return translateText(text, language);
+  };
+  
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage, t: translations[language] }}>
+    <LanguageContext.Provider value={{ language, toggleLanguage, t: translations[language], translate }}>
       {children}
     </LanguageContext.Provider>
   );
