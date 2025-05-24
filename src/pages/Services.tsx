@@ -124,7 +124,7 @@ const ServicesPage = () => {
                 <div className="grid md:grid-cols-2 gap-10 items-center">
                   <div>
                     <div className="flex items-center mb-6">
-                      <div className="w-16 h-16 rounded-xl flex items-center justify-center mr-4" className={services[key].image}>
+                      <div className={`w-16 h-16 rounded-xl flex items-center justify-center mr-4 ${services[key].image}`}>
                         {services[key].icon}
                       </div>
                       <h2 className="text-3xl font-bold text-gray-900">{services[key].title}</h2>
