@@ -1,16 +1,180 @@
 
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Check, Globe, Code, Smartphone, Settings, Star, ArrowRight } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import MainLayout from '@/components/MainLayout';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useNavigate } from 'react-router-dom';
+import { Badge } from '@/components/ui/badge';
 
 const ServicesPage = () => {
   const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState("web");
+  const navigate = useNavigate();
+  
+  const handleContactClick = () => {
+    navigate('/contact');
+  };
+  
+  const servicePackages = {
+    web: [
+      {
+        name: language === 'en' ? "Basic Website" : "বেসিক ওয়েবসাইট",
+        price: language === 'en' ? "$599" : "৳45,000",
+        features: [
+          language === 'en' ? "5 Pages" : "৫ পৃষ্ঠা",
+          language === 'en' ? "Responsive Design" : "রেসপন্সিভ ডিজাইন",
+          language === 'en' ? "Contact Form" : "যোগাযোগ ফর্ম",
+          language === 'en' ? "SEO Basics" : "এসইও বেসিকস",
+          language === 'en' ? "Free Domain & Hosting (1 year)" : "ফ্রি ডোমেইন ও হোস্টিং (১ বছর)",
+        ]
+      },
+      {
+        name: language === 'en' ? "Business Website" : "বিজনেস ওয়েবসাইট",
+        price: language === 'en' ? "$999" : "৳75,000",
+        features: [
+          language === 'en' ? "10 Pages" : "১০ পৃষ্ঠা",
+          language === 'en' ? "Responsive Design" : "রেসপন্সিভ ডিজাইন",
+          language === 'en' ? "Contact Form & Map" : "যোগাযোগ ফর্ম ও ম্যাপ",
+          language === 'en' ? "SEO Optimization" : "এসইও অপটিমাইজেশন",
+          language === 'en' ? "Social Media Integration" : "সোশ্যাল মিডিয়া ইন্টিগ্রেশন",
+          language === 'en' ? "Free Domain & Hosting (1 year)" : "ফ্রি ডোমেইন ও হোস্টিং (১ বছর)",
+          language === 'en' ? "CMS Integration" : "সিএমএস ইন্টিগ্রেশন",
+        ]
+      },
+      {
+        name: language === 'en' ? "E-Commerce Website" : "ই-কমার্স ওয়েবসাইট",
+        price: language === 'en' ? "$1,499" : "৳120,000",
+        features: [
+          language === 'en' ? "20 Pages" : "২০ পৃষ্ঠা",
+          language === 'en' ? "Responsive Design" : "রেসপন্সিভ ডিজাইন",
+          language === 'en' ? "Product Management" : "প্রোডাক্ট ম্যানেজমেন্ট",
+          language === 'en' ? "Payment Gateway Integration" : "পেমেন্ট গেটওয়ে ইন্টিগ্রেশন",
+          language === 'en' ? "Shopping Cart" : "শপিং কার্ট",
+          language === 'en' ? "Order Tracking" : "অর্ডার ট্র্যাকিং",
+          language === 'en' ? "SEO Optimization" : "এসইও অপটিমাইজেশন",
+          language === 'en' ? "Free Domain & Hosting (1 year)" : "ফ্রি ডোমেইন ও হোস্টিং (১ বছর)",
+        ]
+      }
+    ],
+    mobile: [
+      {
+        name: language === 'en' ? "Basic App" : "বেসিক অ্যাপ",
+        price: language === 'en' ? "$999" : "৳75,000",
+        features: [
+          language === 'en' ? "Essential Features" : "অত্যাবশ্যক ফিচার",
+          language === 'en' ? "Basic UI/UX" : "বেসিক ইউআই/ইউএক্স",
+          language === 'en' ? "Single Platform (Android)" : "সিঙ্গেল প্ল্যাটফর্ম (অ্যান্ড্রয়েড)",
+          language === 'en' ? "Basic Analytics" : "বেসিক অ্যানালিটিক্স",
+          language === 'en' ? "3 Revisions" : "৩ রিভিশন",
+        ]
+      },
+      {
+        name: language === 'en' ? "Professional App" : "প্রফেশনাল অ্যাপ",
+        price: language === 'en' ? "$1,999" : "৳150,000",
+        features: [
+          language === 'en' ? "Advanced Features" : "অ্যাডভান্সড ফিচার",
+          language === 'en' ? "Premium UI/UX" : "প্রিমিয়াম ইউআই/ইউএক্স",
+          language === 'en' ? "Dual Platform (Android & iOS)" : "ডুয়াল প্ল্যাটফর্ম (অ্যান্ড্রয়েড ও আইওএস)",
+          language === 'en' ? "Push Notifications" : "পুশ নোটিফিকেশন",
+          language === 'en' ? "Advanced Analytics" : "অ্যাডভান্সড অ্যানালিটিক্স",
+          language === 'en' ? "5 Revisions" : "৫ রিভিশন",
+        ]
+      },
+      {
+        name: language === 'en' ? "Enterprise App" : "এন্টারপ্রাইজ অ্যাপ",
+        price: language === 'en' ? "$3,999" : "৳300,000",
+        features: [
+          language === 'en' ? "Custom Features" : "কাস্টম ফিচার",
+          language === 'en' ? "Premium UI/UX" : "প্রিমিয়াম ইউআই/ইউএক্স",
+          language === 'en' ? "Cross-Platform" : "ক্রস-প্ল্যাটফর্ম",
+          language === 'en' ? "API Integration" : "এপিআই ইন্টিগ্রেশন",
+          language === 'en' ? "Backend Development" : "ব্যাকএন্ড ডেভেলপমেন্ট",
+          language === 'en' ? "Real-time Database" : "রিয়েল-টাইম ডাটাবেস",
+          language === 'en' ? "Unlimited Revisions" : "আনলিমিটেড রিভিশন",
+        ]
+      }
+    ],
+    software: [
+      {
+        name: language === 'en' ? "Basic Software" : "বেসিক সফটওয়্যার",
+        price: language === 'en' ? "$1,499" : "৳120,000",
+        features: [
+          language === 'en' ? "Core Functionality" : "মূল ফাংশনালিটি",
+          language === 'en' ? "User Management" : "ইউজার ম্যানেজমেন্ট",
+          language === 'en' ? "Basic Reporting" : "বেসিক রিপোর্টিং",
+          language === 'en' ? "Desktop Application" : "ডেস্কটপ অ্যাপ্লিকেশন",
+          language === 'en' ? "One-time Training" : "ওয়ান-টাইম ট্রেনিং",
+        ]
+      },
+      {
+        name: language === 'en' ? "Standard Software" : "স্ট্যান্ডার্ড সফটওয়্যার",
+        price: language === 'en' ? "$2,999" : "৳225,000",
+        features: [
+          language === 'en' ? "Advanced Functionality" : "অ্যাডভান্সড ফাংশনালিটি",
+          language === 'en' ? "User & Role Management" : "ইউজার ও রোল ম্যানেজমেন্ট",
+          language === 'en' ? "Advanced Reporting" : "অ্যাডভান্সড রিপোর্টিং",
+          language === 'en' ? "Cloud Deployment" : "ক্লাউড ডেপ্লয়মেন্ট",
+          language === 'en' ? "3 Months Support" : "৩ মাসের সাপোর্ট",
+          language === 'en' ? "Training Sessions" : "ট্রেনিং সেশন",
+        ]
+      },
+      {
+        name: language === 'en' ? "Enterprise Solution" : "এন্টারপ্রাইজ সলিউশন",
+        price: language === 'en' ? "$5,999+" : "৳450,000+",
+        features: [
+          language === 'en' ? "Custom Development" : "কাস্টম ডেভেলপমেন্ট",
+          language === 'en' ? "Integration with Existing Systems" : "এক্সিস্টিং সিস্টেমের সাথে ইন্টিগ্রেশন",
+          language === 'en' ? "Advanced Security" : "অ্যাডভান্সড সিকিউরিটি",
+          language === 'en' ? "Scalable Architecture" : "স্কেলেবল আর্কিটেকচার",
+          language === 'en' ? "Business Intelligence" : "বিজনেস ইন্টেলিজেন্স",
+          language === 'en' ? "6 Months Support" : "৬ মাসের সাপোর্ট",
+          language === 'en' ? "Dedicated Account Manager" : "ডেডিকেটেড অ্যাকাউন্ট ম্যানেজার",
+        ]
+      }
+    ],
+    marketing: [
+      {
+        name: language === 'en' ? "Starter Package" : "স্টার্টার প্যাকেজ",
+        price: language === 'en' ? "$499/month" : "৳40,000/মাস",
+        features: [
+          language === 'en' ? "Social Media Management" : "সোশ্যাল মিডিয়া ম্যানেজমেন্ট",
+          language === 'en' ? "Basic SEO" : "বেসিক এসইও",
+          language === 'en' ? "Content Creation (5 posts)" : "কন্টেন্ট ক্রিয়েশন (৫টি পোস্ট)",
+          language === 'en' ? "Monthly Report" : "মাসিক রিপোর্ট",
+          language === 'en' ? "Email Marketing" : "ইমেইল মার্কেটিং",
+        ]
+      },
+      {
+        name: language === 'en' ? "Growth Package" : "গ্রোথ প্যাকেজ",
+        price: language === 'en' ? "$999/month" : "৳75,000/মাস",
+        features: [
+          language === 'en' ? "Social Media Management" : "সোশ্যাল মিডিয়া ম্যানেজমেন্ট",
+          language === 'en' ? "Advanced SEO" : "অ্যাডভান্সড এসইও",
+          language === 'en' ? "Content Creation (10 posts)" : "কন্টেন্ট ক্রিয়েশন (১০টি পোস্ট)",
+          language === 'en' ? "PPC Campaigns" : "পিপিসি ক্যাম্পেইন",
+          language === 'en' ? "Bi-Weekly Reports" : "দ্বি-সাপ্তাহিক রিপোর্ট",
+          language === 'en' ? "Lead Generation" : "লিড জেনারেশন",
+        ]
+      },
+      {
+        name: language === 'en' ? "Premium Package" : "প্রিমিয়াম প্যাকেজ",
+        price: language === 'en' ? "$1,999/month" : "৳150,000/মাস",
+        features: [
+          language === 'en' ? "Complete Digital Marketing" : "কমপ্লিট ডিজিটাল মার্কেটিং",
+          language === 'en' ? "Advanced SEO & SEM" : "অ্যাডভান্সড এসইও ও এসইএম",
+          language === 'en' ? "Content Creation (20 posts)" : "কন্টেন্ট ক্রিয়েশন (২০টি পোস্ট)",
+          language === 'en' ? "Advanced Analytics" : "অ্যাডভান্সড অ্যানালিটিক্স",
+          language === 'en' ? "Weekly Reports" : "সাপ্তাহিক রিপোর্ট",
+          language === 'en' ? "Conversion Optimization" : "কনভার্সন অপটিমাইজেশন",
+          language === 'en' ? "Dedicated Marketing Manager" : "ডেডিকেটেড মার্কেটিং ম্যানেজার",
+        ]
+      }
+    ]
+  };
   
   const services = {
     web: {
@@ -93,6 +257,14 @@ const ServicesPage = () => {
               : "আমরা ডিজিটাল বিশ্বে আপনার ব্যবসাকে সমৃদ্ধ করতে সাহায্য করার জন্য ব্যাপক প্রযুক্তি সমাধান প্রদান করি।"
             }
           </p>
+          <Button 
+            onClick={handleContactClick}
+            size="lg" 
+            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+          >
+            {language === 'en' ? "Get Started" : "শুরু করুন"}
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </section>
       
@@ -100,7 +272,7 @@ const ServicesPage = () => {
       <section className="py-16 px-4 bg-white">
         <div className="container mx-auto max-w-6xl">
           <Tabs defaultValue="web" className="w-full" onValueChange={setActiveTab}>
-            <TabsList className="grid grid-cols-4 mb-12">
+            <TabsList className="grid grid-cols-2 md:grid-cols-4 mb-12">
               <TabsTrigger value="web" className="py-3 data-[state=active]:bg-blue-50">
                 <Globe className="h-5 w-5 mr-2" />
                 {language === 'en' ? "Web" : "ওয়েব"}
@@ -134,7 +306,7 @@ const ServicesPage = () => {
                       {services[key].description}
                     </p>
                     
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {services[key].features.map((feature, index) => (
                         <div key={index} className="flex items-center">
                           <Check className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
@@ -143,12 +315,21 @@ const ServicesPage = () => {
                       ))}
                     </div>
                     
-                    <Button 
-                      className="mt-8 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
-                    >
-                      {language === 'en' ? "Get a Quote" : "কোটেশন নিন"}
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
+                    <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                      <Button 
+                        className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                        onClick={handleContactClick}
+                      >
+                        {language === 'en' ? "Get a Quote" : "কোটেশন নিন"}
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        onClick={() => document.getElementById('packages-' + key).scrollIntoView({ behavior: 'smooth' })}
+                      >
+                        {language === 'en' ? "View Packages" : "প্যাকেজ দেখুন"}
+                      </Button>
+                    </div>
                   </div>
                   
                   <div className="rounded-xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow border border-gray-100">
@@ -161,7 +342,7 @@ const ServicesPage = () => {
                       
                       <div className="space-y-3">
                         <div className="flex items-start">
-                          <Check className="h-5 w-5 text-green-500 mr-3 mt-1" />
+                          <Check className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
                           <p className="text-gray-600">
                             {language === 'en' 
                               ? "Experienced team of professionals specialized in " + key + " development" 
@@ -171,7 +352,7 @@ const ServicesPage = () => {
                         </div>
                         
                         <div className="flex items-start">
-                          <Check className="h-5 w-5 text-green-500 mr-3 mt-1" />
+                          <Check className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
                           <p className="text-gray-600">
                             {language === 'en' 
                               ? "Attention to detail and focus on quality" 
@@ -181,7 +362,7 @@ const ServicesPage = () => {
                         </div>
                         
                         <div className="flex items-start">
-                          <Check className="h-5 w-5 text-green-500 mr-3 mt-1" />
+                          <Check className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
                           <p className="text-gray-600">
                             {language === 'en' 
                               ? "Customized solutions tailored to your specific needs" 
@@ -191,7 +372,7 @@ const ServicesPage = () => {
                         </div>
                         
                         <div className="flex items-start">
-                          <Check className="h-5 w-5 text-green-500 mr-3 mt-1" />
+                          <Check className="h-5 w-5 text-green-500 mr-3 mt-1 flex-shrink-0" />
                           <p className="text-gray-600">
                             {language === 'en' 
                               ? "Ongoing support and maintenance" 
@@ -201,6 +382,77 @@ const ServicesPage = () => {
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+                
+                {/* Packages Section for each service */}
+                <div id={`packages-${key}`} className="mt-20">
+                  <div className="text-center mb-12">
+                    <Badge variant="outline" className="mb-4 px-3 py-1">
+                      {language === 'en' ? "Transparent Pricing" : "স্বচ্ছ মূল্য"}
+                    </Badge>
+                    <h2 className="text-3xl font-bold mb-4">
+                      {language === 'en' 
+                        ? services[key].title + " Packages" 
+                        : services[key].title + " প্যাকেজ"
+                      }
+                    </h2>
+                    <p className="text-gray-600 max-w-3xl mx-auto">
+                      {language === 'en'
+                        ? "Choose the package that best fits your business needs and budget"
+                        : "আপনার ব্যবসার প্রয়োজন এবং বাজেটের সাথে সবচেয়ে উপযুক্ত প্যাকেজটি বেছে নিন"
+                      }
+                    </p>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-3 gap-8">
+                    {servicePackages[key].map((pkg, index) => (
+                      <Card key={index} className={`overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-0 shadow-lg ${index === 1 ? 'md:transform md:scale-105 border-2 border-blue-500' : ''}`}>
+                        {index === 1 && (
+                          <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 text-sm font-medium rounded-bl-lg">
+                            {language === 'en' ? 'Popular' : 'জনপ্রিয়'}
+                          </div>
+                        )}
+                        <CardHeader className="pb-2">
+                          <CardTitle className="text-xl md:text-2xl">{pkg.name}</CardTitle>
+                          <div className="mt-2">
+                            <div className="text-3xl font-bold text-blue-600">{pkg.price}</div>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3 mb-6">
+                            {pkg.features.map((feature, featureIndex) => (
+                              <div key={featureIndex} className="flex items-start">
+                                <Check className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
+                                <span className="text-gray-700">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+                          <Button 
+                            className="w-full mt-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                            onClick={handleContactClick}
+                          >
+                            {language === 'en' ? "Get Started" : "শুরু করুন"}
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                  
+                  <div className="text-center mt-12">
+                    <p className="text-gray-600 mb-6">
+                      {language === 'en'
+                        ? "Need a custom solution? Contact us for a personalized quote."
+                        : "কাস্টম সমাধান প্রয়োজন? একটি ব্যক্তিগতকৃত কোটেশনের জন্য আমাদের সাথে যোগাযোগ করুন।"
+                      }
+                    </p>
+                    <Button 
+                      variant="outline" 
+                      size="lg"
+                      onClick={handleContactClick}
+                    >
+                      {language === 'en' ? "Request Custom Quote" : "কাস্টম কোটেশন অনুরোধ করুন"}
+                    </Button>
                   </div>
                 </div>
               </TabsContent>
@@ -321,6 +573,7 @@ const ServicesPage = () => {
             size="lg" 
             variant="secondary" 
             className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-6 text-lg font-semibold"
+            onClick={handleContactClick}
           >
             {language === 'en' ? "Get Started" : "শুরু করুন"}
             <ArrowRight className="ml-2 h-5 w-5" />

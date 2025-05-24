@@ -1,14 +1,28 @@
 
 export const scrollToSection = (sectionId: string): void => {
-  const section = document.getElementById(sectionId);
-  
-  if (section) {
-    // Add a small delay to ensure proper scrolling after page load
-    setTimeout(() => {
-      section.scrollIntoView({ 
+  // Add small delay to ensure DOM is ready
+  setTimeout(() => {
+    const section = document.getElementById(sectionId);
+    
+    if (section) {
+      // Scroll to the section with smooth behavior
+      section.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
-    }, 100);
-  }
+      
+      // For mobile devices, add focus for better UX
+      section.setAttribute('tabindex', '-1');
+      section.focus({ preventScroll: true });
+      
+      // Optionally highlight the section briefly
+      const originalBackgroundColor = section.style.backgroundColor;
+      section.style.transition = 'background-color 0.8s ease';
+      section.style.backgroundColor = 'rgba(219, 234, 254, 0.3)'; // Light blue highlight
+      
+      setTimeout(() => {
+        section.style.backgroundColor = originalBackgroundColor;
+      }, 1000);
+    }
+  }, 100);
 };

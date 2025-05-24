@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { X, Menu, ChevronDown, ChevronRight, Code, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,13 +8,16 @@ import {
   SheetClose
 } from "@/components/ui/sheet";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
+import { scrollToSection } from "@/utils/scrollToSection";
 
 const MobileMenu = () => {
   const { t, language, toggleLanguage } = useLanguage();
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   
   const toggleSection = (section: string) => {
     setOpenSection(openSection === section ? null : section);
@@ -28,9 +30,24 @@ const MobileMenu = () => {
   const handleLanguageToggle = () => {
     toggleLanguage();
   };
+
+  const handleSectionNavigation = (sectionId: string) => {
+    // Close the sheet
+    setIsOpen(false);
+    
+    // If we're already on the homepage, just scroll to the section
+    if (location.pathname === '/') {
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 100);
+    } else {
+      // Otherwise navigate to homepage with the hash
+      navigate('/#' + sectionId);
+    }
+  };
   
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="md:hidden">
           <Menu className="h-6 w-6" />
@@ -46,32 +63,36 @@ const MobileMenu = () => {
               </div>
               <span className="font-bold text-lg">{t.companyName}</span>
             </div>
-            <SheetClose asChild>
-              <Button variant="ghost" size="icon">
-                <X className="h-5 w-5" />
-              </Button>
-            </SheetClose>
+            <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
+              <X className="h-5 w-5" />
+            </Button>
           </div>
           
           <div className="flex-1 mt-4 overflow-auto">
             <nav className="space-y-1">
-              <SheetClose asChild>
-                <Link to="/" className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}>
-                  {language === 'en' ? "Home" : "হোম"}
-                </Link>
-              </SheetClose>
+              <Link 
+                to="/"
+                onClick={() => setIsOpen(false)} 
+                className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}
+              >
+                {language === 'en' ? "Home" : "হোম"}
+              </Link>
               
-              <SheetClose asChild>
-                <Link to="/about" className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/about') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}>
-                  {t.about}
-                </Link>
-              </SheetClose>
+              <Link 
+                to="/about"
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/about') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}
+              >
+                {t.about}
+              </Link>
               
-              <SheetClose asChild>
-                <Link to="/services" className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/services') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}>
-                  {t.services}
-                </Link>
-              </SheetClose>
+              <Link 
+                to="/services"
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/services') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}
+              >
+                {t.services}
+              </Link>
               
               {/* Packages */}
               <Collapsible
@@ -87,29 +108,34 @@ const MobileMenu = () => {
                   }
                 </CollapsibleTrigger>
                 <CollapsibleContent className="pl-4 space-y-1 mt-1">
-                  <SheetClose asChild>
-                    <Link to="/#packages" className="flex items-center py-2 px-4 rounded-lg hover:bg-gray-100 text-sm">
-                      {t.beginnerPackage}
-                    </Link>
-                  </SheetClose>
-                  <SheetClose asChild>
-                    <Link to="/#packages" className="flex items-center py-2 px-4 rounded-lg hover:bg-gray-100 text-sm">
-                      {t.corporatePackage}
-                    </Link>
-                  </SheetClose>
-                  <SheetClose asChild>
-                    <Link to="/#packages" className="flex items-center py-2 px-4 rounded-lg hover:bg-gray-100 text-sm">
-                      {t.corporatePlusPackage}
-                    </Link>
-                  </SheetClose>
+                  <button 
+                    onClick={() => handleSectionNavigation('packages')} 
+                    className="flex items-center py-2 px-4 rounded-lg hover:bg-gray-100 text-sm w-full text-left"
+                  >
+                    {t.beginnerPackage}
+                  </button>
+                  <button 
+                    onClick={() => handleSectionNavigation('packages')} 
+                    className="flex items-center py-2 px-4 rounded-lg hover:bg-gray-100 text-sm w-full text-left"
+                  >
+                    {t.corporatePackage}
+                  </button>
+                  <button 
+                    onClick={() => handleSectionNavigation('packages')} 
+                    className="flex items-center py-2 px-4 rounded-lg hover:bg-gray-100 text-sm w-full text-left"
+                  >
+                    {t.corporatePlusPackage}
+                  </button>
                 </CollapsibleContent>
               </Collapsible>
               
-              <SheetClose asChild>
-                <Link to="/contact" className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/contact') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}>
-                  {t.contact}
-                </Link>
-              </SheetClose>
+              <Link 
+                to="/contact" 
+                onClick={() => setIsOpen(false)}
+                className={`flex items-center py-3 px-4 rounded-lg hover:bg-gray-100 ${isActive('/contact') ? 'bg-gray-100 font-medium text-blue-600' : ''}`}
+              >
+                {t.contact}
+              </Link>
             </nav>
           </div>
           
@@ -124,15 +150,13 @@ const MobileMenu = () => {
                 {language === 'en' ? t.bengali : t.english}
               </span>
             </Button>
-            <SheetClose asChild>
-              <Link to="/contact">
-                <Button 
-                  className="w-full mt-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
-                >
-                  {t.getStarted}
-                </Button>
-              </Link>
-            </SheetClose>
+            <Link to="/contact" onClick={() => setIsOpen(false)}>
+              <Button 
+                className="w-full mt-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+              >
+                {t.getStarted}
+              </Button>
+            </Link>
           </div>
         </div>
       </SheetContent>
