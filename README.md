@@ -1,8 +1,13 @@
-# Welcome to your Lovable project
+
+# AgamiIT - Your Technology Partner
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/23984988-537a-455d-91c0-ebfc20da68ca
+
+## About AgamiIT
+
+AgamiIT is a modern technology company specializing in web development, mobile applications, software solutions, and digital marketing services. Since 2015, we've been helping businesses transform their ideas into digital reality.
 
 ## How can I edit this code?
 
@@ -59,10 +64,21 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- Lucide React Icons
+
+## Features
+
+- 🌐 Responsive web design
+- 📱 Mobile-first approach
+- 🎨 Modern UI with gradients and animations
+- 🌍 Bilingual support (English/Bengali)
+- ⚡ Fast performance with Vite
+- 🎯 Professional service showcase
+- 📦 Service packages and pricing
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/23984988-537a-455d-91c0-ebfc20da68ca) and click on Share -> Publish.
+Simply open [Lovable](https://lovable.dev/projects/23984988-537a-455d-91c0-ebfc20da68ca) and click on Share → Publish.
 
 ## Can I connect a custom domain to my Lovable project?
 
