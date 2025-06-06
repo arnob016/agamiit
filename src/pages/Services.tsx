@@ -8,12 +8,33 @@ import { ServiceCard } from "@/components/services/ServiceCard";
 import { ServiceTabs } from "@/components/services/ServiceTabs";
 import { PackagesSection } from "@/components/services/PackagesSection";
 import { getServicesData } from "@/utils/servicesData";
+import { Code, PenTool, Smartphone, Globe, Database, BarChart } from "lucide-react";
 
 const Services = () => {
   const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState<string>("all");
   
   const services = getServicesData(language, t);
+  
+  const getIcon = (iconName: string) => {
+    const iconProps = { className: "h-6 w-6 text-blue-600" };
+    switch (iconName) {
+      case "Globe":
+        return <Globe {...iconProps} />;
+      case "Smartphone":
+        return <Smartphone {...iconProps} />;
+      case "Code":
+        return <Code {...iconProps} />;
+      case "Database":
+        return <Database {...iconProps} />;
+      case "BarChart":
+        return <BarChart {...iconProps} />;
+      case "PenTool":
+        return <PenTool {...iconProps} />;
+      default:
+        return <Globe {...iconProps} />;
+    }
+  };
   
   const filteredServices = activeTab === "all" 
     ? services 
@@ -43,7 +64,7 @@ const Services = () => {
           {filteredServices.map((service, index) => (
             <ServiceCard 
               key={index}
-              icon={service.icon}
+              icon={getIcon(service.iconName)}
               title={service.title}
               description={service.description}
             />

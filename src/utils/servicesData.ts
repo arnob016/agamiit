@@ -1,9 +1,7 @@
 
-import { Code, PenTool, Smartphone, Globe, Database, BarChart } from "lucide-react";
-
 export const getServicesData = (language: 'en' | 'bn', t: any) => [
   {
-    icon: <Globe className="h-6 w-6 text-blue-600" />,
+    iconName: "Globe",
     title: t.webDevelopment,
     description: language === 'en' 
       ? "Create beautiful, responsive websites tailored to your brand with cutting-edge technology and SEO optimization."
@@ -11,7 +9,7 @@ export const getServicesData = (language: 'en' | 'bn', t: any) => [
     category: "web"
   },
   {
-    icon: <Smartphone className="h-6 w-6 text-blue-600" />,
+    iconName: "Smartphone",
     title: t.mobileApps,
     description: language === 'en'
       ? "Native and cross-platform mobile applications that provide seamless user experiences across all devices."
@@ -19,7 +17,7 @@ export const getServicesData = (language: 'en' | 'bn', t: any) => [
     category: "mobile"
   },
   {
-    icon: <Code className="h-6 w-6 text-blue-600" />,
+    iconName: "Code",
     title: t.softwareSolutions,
     description: language === 'en'
       ? "Custom enterprise software solutions designed to streamline your business processes and increase productivity."
@@ -27,7 +25,7 @@ export const getServicesData = (language: 'en' | 'bn', t: any) => [
     category: "software"
   },
   {
-    icon: <Database className="h-6 w-6 text-blue-600" />,
+    iconName: "Database",
     title: t.cloudServices,
     description: language === 'en'
       ? "Secure and scalable cloud infrastructure solutions with expert deployment and ongoing maintenance services."
@@ -35,7 +33,7 @@ export const getServicesData = (language: 'en' | 'bn', t: any) => [
     category: "cloud"
   },
   {
-    icon: <BarChart className="h-6 w-6 text-blue-600" />,
+    iconName: "BarChart",
     title: t.digitalMarketing,
     description: language === 'en'
       ? "Comprehensive digital marketing strategies to increase your online presence and drive customer engagement."
@@ -43,7 +41,7 @@ export const getServicesData = (language: 'en' | 'bn', t: any) => [
     category: "marketing"
   },
   {
-    icon: <PenTool className="h-6 w-6 text-blue-600" />,
+    iconName: "PenTool",
     title: t.uiUxDesign,
     description: language === 'en'
       ? "Captivating user interface and experience design that engages your audience and drives conversion."
